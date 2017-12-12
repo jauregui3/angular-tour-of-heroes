@@ -22,9 +22,8 @@ export class HeroService {
     return of(HEROES.find(hero => hero.id === id));
   }
 
-  getHeroes(): Observable<Hero[]> {
-    this.messageService.add('HeroService: fetched heroes');
-    return of(HEROES);
+  getHeroes (): Observable<Hero[]> {
+    return this.http.get<Hero[]>(this.heroesUrl)
   }
 
   private log(message: string) {
