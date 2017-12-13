@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 
 
 import { Hero } from './hero';
@@ -24,6 +25,9 @@ export class HeroService {
 
   getHeroes (): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
+      .pipe(
+        catchError(this.handleError('getHeroes', []))
+      );
   }
 
   private log(message: string) {
